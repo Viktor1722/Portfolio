@@ -1,0 +1,48 @@
+//-------------------NAVBAR--------//
+const button = document.getElementById("toggle");
+  const overlay = document.getElementById("overlay");
+
+  button.addEventListener("click", function() {
+    this.classList.toggle("active");
+    overlay.classList.toggle("open");
+  });
+
+
+
+
+
+let activeIndex = 0;
+
+const groups = document.getElementsByClassName("card-group");
+
+const handleRightClick = () => {
+  const nextIndex = activeIndex + 1 <= groups.length - 1 ? activeIndex + 1 : 0;
+  
+  const currentGroup = document.querySelector(`[data-index="${activeIndex}"]`),
+        nextGroup = document.querySelector(`[data-index="${nextIndex}"]`);
+        
+  currentGroup.dataset.status = "after";
+  
+  nextGroup.dataset.status = "becoming-active-from-before";
+  
+  setTimeout(() => {
+    nextGroup.dataset.status = "active";
+    activeIndex = nextIndex;
+  });
+}
+
+const handleLeftClick = () => {
+  const nextIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : groups.length - 1;
+  
+  const currentGroup = document.querySelector(`[data-index="${activeIndex}"]`),
+        nextGroup = document.querySelector(`[data-index="${nextIndex}"]`);
+  
+  currentGroup.dataset.status = "before";
+  
+  nextGroup.dataset.status = "becoming-active-from-after";
+  
+  setTimeout(() => {
+    nextGroup.dataset.status = "active";
+    activeIndex = nextIndex;
+  });
+}
